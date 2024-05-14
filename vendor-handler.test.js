@@ -2,7 +2,6 @@
 
 
 // tests are partially chatgpt generated
-const events = require('../eventPool.js');
 const handlePackageDelivered = require('./handler.js');
 
 // Mocking the console.log function

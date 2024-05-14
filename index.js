@@ -1,6 +1,7 @@
 'use strict';
 
-const events = require('../eventPool.js');
+const io = require('socket.io-client');
+
 
 const Chance = require('chance');
 
@@ -9,7 +10,11 @@ const handlePackageDelivered = require('./handler.js');
 // Creating a new Chance instance
 const chance = new Chance();
 
+require('dotenv').config();
 
+const URL = process.env.URL;
+
+const hubConnection = io.connect(URL);
 
 setInterval( () => {
   const randomStoreName = chance.company();
@@ -24,7 +29,7 @@ setInterval( () => {
     address: randomAddress
   }
   console.log('----------------------');
-  events.emit('package-available', packageInfo);
+  hubConnection.emit('package-available', packageInfo);
 }, 2000)
 
-events.on('package-delivered', handlePackageDelivered);
+hubConnection.on('package-delivered', handlePackageDelivered);
