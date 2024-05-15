@@ -28,7 +28,6 @@ setInterval( () => {
     customer: randomName,
     address: randomAddress
   }
-  console.log('----------------------');
   hubConnection.emit('package-available', packageInfo);
 }, 2000)
 
